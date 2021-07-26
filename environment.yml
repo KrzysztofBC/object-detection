@@ -1,0 +1,11 @@
+name: obdet
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - tensorflow-gpu=2.*
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
