@@ -5,7 +5,6 @@ We're gonna to find cars on a sample image.
 
 import cv2
 import tensorflow as tf
-import numpy as np
 import tensorflow_hub as hub
 
 
@@ -48,7 +47,7 @@ class TfHubSampleDetector:
         image_resized = cv2.resize(image, target_size)
         # convert bgr to rgb
         image_rgb = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
-        # creating tensor and convert to uint8
+        # creating tensor and convert to unsigned int 8
         img_tensor = tf.convert_to_tensor(image_rgb, dtype=tf.uint8)
         # adding extra dimension
         img_tensor = tf.expand_dims(img_tensor, 0)
