@@ -4,9 +4,6 @@ using builtin camera to capture image and process it
 
 
 import cv2
-#import numpy as np
-#import tensorflow as tf
-#from object_detection import tf_hub_sample
 
 
 def process_img_from_camera():
