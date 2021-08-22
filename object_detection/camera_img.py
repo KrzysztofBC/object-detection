@@ -35,20 +35,21 @@ def draw_detections(img, predictions):
 
 def process_img_from_camera():
     # create processing object
-    tf_hub_det = tf_hub_sample.TfHubSampleDetector(coco_labels_path='../samples/labels.csv')
+    tf_hub_det = tf_hub_sample.TfHubSampleDetector(coco_labels_path='../samples/labels.csv', det_type=1)
 
     cap = cv2.VideoCapture(0)
 
     while cap.isOpened():
         success, img = cap.read()
         if success:
-            cv2.imshow("output", img)
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                image_tensor = tf_hub_det.prepare_image(img, (1024, 1024))
-                predictions = tf_hub_det.detect_boxes(image_tensor, 0.5)
-                print("is there some prediction?:\n", predictions)
+            image_tensor = tf_hub_det.prepare_image(img, (1024, 1024))
+            predictions = tf_hub_det.detect_boxes(image_tensor, 0.5)
+            if predictions[0].shape[0] > 1:
                 img_boxes = draw_detections(img, predictions)
-                cv2.imwrite("/home/nvidia/Projekty/object_detection/samples/output.jpg", img_boxes)
+                cv2.imshow("output", img_boxes)
+            else:
+                cv2.imshow("output", img)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
 
 
