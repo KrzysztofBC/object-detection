@@ -46,18 +46,15 @@ class TfHubSampleDetector:
 
         return cv2.imread(path_to_image)
 
-    def prepare_image(self, image, target_size):
+    def prepare_image(self, image):
         """
         Preparation for detection.
         :param image: numpy array type of an image, 3 dims, HWC convention
-        :param target_size: tuple containing width and height of an input image to resize
         :return img_tensor: image as 4D tensor
         """
 
-        # resize
-        image_resized = cv2.resize(image, target_size)
         # convert bgr to rgb
-        image_rgb = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         # creating tensor and convert to unsigned int 8
         img_tensor = tf.convert_to_tensor(image_rgb, dtype=tf.uint8)
         # adding extra dimension

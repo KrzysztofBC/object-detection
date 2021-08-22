@@ -4,8 +4,7 @@ using builtin camera to capture image and process it
 
 
 import cv2
-import matplotlib.pyplot as plt
-from object_detection import tf_hub_sample
+import tf_hub_sample
 import numpy as np
 
 
@@ -42,13 +41,21 @@ def process_img_from_camera():
     while cap.isOpened():
         success, img = cap.read()
         if success:
-            image_tensor = tf_hub_det.prepare_image(img, (1024, 1024))
+            # resize, two times bigger, why ? i do not know ;P just for fun
+            image_resized = cv2.resize(
+                src=img,
+                dsize=(0, 0),
+                fx=2,
+                fy=2
+            )
+
+            image_tensor = tf_hub_det.prepare_image(image_resized)
             predictions = tf_hub_det.detect_boxes(image_tensor, 0.5)
             if predictions[0].shape[0] > 1:
-                img_boxes = draw_detections(img, predictions)
+                img_boxes = draw_detections(image_resized, predictions)
                 cv2.imshow("output", img_boxes)
             else:
-                cv2.imshow("output", img)
+                cv2.imshow("output", image_resized)
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
 
