@@ -4,7 +4,7 @@ from pathlib import Path
 
 @pytest.fixture(scope="session")
 def samples_dir():
-    return f"{str(Path(__file__).absolute().parent.parent)}\\samples\\"
+    return f"{str(Path(__file__).absolute().parent.parent)}/samples/"
 
 
 @pytest.fixture()
